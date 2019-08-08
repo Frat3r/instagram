@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import datetime as dt
-from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.base import TransformerMixin
 
 
 def load_instagram(pickle_name='pickled_inst', col_n=('Time', 'ID', 'Likes', 'Comments', 'Followers', 'Char_in_desrc',
@@ -41,16 +41,6 @@ def load_instagram(pickle_name='pickled_inst', col_n=('Time', 'ID', 'Likes', 'Co
     except FileNotFoundError:
         instagram = no_pickle(pickle_name)
     return instagram
-
-
-def choose_rows(inst_df, time_shift):
-    u_IDs = inst_df['ID'].unique()
-    u_first_app = [inst_df['First_app'].iloc[((inst_df.ID.values == ID_ex) &
-                                              (inst_df.First_app.notna())).idxmax()] for ID_ex in u_IDs]
-    rows_lists = np.array([(inst_df['Time'] == (f_app + time_shift)) & (inst_df['ID'] == m_ID)
-                          for f_app, m_ID in zip(u_first_app, u_IDs)])
-    rows_ind = np.array([row.argmax() if row.sum() > 0 else -1 for row in rows_lists])
-    return rows_ind[rows_ind > -1]
 
 
 class rows_choose(TransformerMixin):
