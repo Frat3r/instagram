@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import datetime as dt
-from sklearn.base import TransformerMixin
+from sklearn.base import BaseEstimator, TransformerMixin
 
 
 def load_instagram(pickle_name='pickled_inst', col_n=('Time', 'ID', 'Likes', 'Comments', 'Followers', 'Char_in_desrc',
@@ -41,6 +41,16 @@ def load_instagram(pickle_name='pickled_inst', col_n=('Time', 'ID', 'Likes', 'Co
     except FileNotFoundError:
         instagram = no_pickle(pickle_name)
     return instagram
+
+
+def choose_rows(inst_df, time_shift):
+    u_IDs = inst_df['ID'].unique()
+    u_first_app = [inst_df['First_app'].iloc[((inst_df.ID.values == ID_ex) &
+                                              (inst_df.First_app.notna())).idxmax()] for ID_ex in u_IDs]
+    rows_lists = np.array([(inst_df['Time'] == (f_app + time_shift)) & (inst_df['ID'] == m_ID)
+                          for f_app, m_ID in zip(u_first_app, u_IDs)])
+    rows_ind = np.array([row.argmax() if row.sum() > 0 else -1 for row in rows_lists])
+    return rows_ind[rows_ind > -1]
 
 
 class rows_choose(TransformerMixin):
@@ -86,8 +96,14 @@ class get_hours(TransformerMixin):
         return X
 
 
+def create_time_intervals(dividing_points):
+    intervals_list = ['%s-%s' % (lower_lim, dividing_points[ind])
+                      for lower_lim, ind in zip(dividing_points, range(1, len(dividing_points)))]
+    return intervals_list
+
+
 class hours_interval(TransformerMixin):
-    def __init__(self, dividing_points=range(0, 25, 6), new_col_name='Time_intervals', int_time_col='Int_hour'):
+    def __init__(self, dividing_points=range(0, 25, 6), new_col_name='Time_intervals', int_time_col='First_app'):
         self.dividing_points = dividing_points
         self.new_col_name = new_col_name
         self.int_time_col = int_time_col
@@ -98,11 +114,12 @@ class hours_interval(TransformerMixin):
     def transform(self, inst_data, y=None):
         X = inst_data.copy()
         X[self.new_col_name] = inst_data[self.int_time_col]
-        intervals_list = ['%s-%s' % (lower_lim, self.dividing_points[ind])
-                          for lower_lim, ind in zip(self.dividing_points, range(1, len(self.dividing_points)))]
+        intervals_list = create_time_intervals(self.dividing_points)
         up_div_points = self.dividing_points[1:]
-        intervals_ind = [X.loc[(X[self.int_time_col] >= low_lim) & (X[self.int_time_col] <= up_lim)].index
+        intervals_ind = [X.loc[(X[self.int_time_col].dt.floor('1H').dt.hour >= low_lim) &
+                               (X[self.int_time_col].dt.floor('1H').dt.hour <= up_lim)].index
                          for low_lim, up_lim in zip(self.dividing_points, up_div_points)]
         for interval, interval_ind in zip(intervals_list, intervals_ind):
             X[self.new_col_name].loc[interval_ind] = interval
         return X
+
