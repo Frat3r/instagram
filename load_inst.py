@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 import datetime as dt
 from sklearn.base import TransformerMixin
+pd.options.mode.chained_assignment = None
 
 
 def load_instagram(pickle_name='pickled_inst', col_n=('Time', 'ID', 'Likes', 'Comments', 'Followers', 'Char_in_desrc',
@@ -113,3 +114,29 @@ class hours_interval(TransformerMixin):
             X[self.new_col_name].loc[interval_ind] = interval
         return X
 
+      
+class select_by_time(TransformerMixin):
+    def __init__(self, time_freq='6h', time_col='Time', diff_col='Diff', ID_col='ID', com_col='Comments',
+                 likes_col='Likes'):
+        self.time_freq = time_freq
+        self.time_col = time_col
+        self.diff_col = diff_col
+        self.ID_col = ID_col
+        self.likes_col = likes_col
+        self.com_col = com_col
+
+    def fit(self, X, y=None):
+        return X
+
+    def transform(self, inst_data, y=None):
+        time_range = pd.date_range(inst_data[self.time_col][0].floor('24H'),
+                                   inst_data[self.time_col].iloc[-1].ceil('24H'),
+                                   freq=self.time_freq)
+        selected_time = inst_data.loc[inst_data[self.time_col].isin(time_range)]
+        selected_time['Diff_comments'], selected_time['Diff_likes'] =\
+            selected_time[self.likes_col], selected_time[self.com_col]
+        for id in inst_data[self.ID_col].unique():
+            sel_list = selected_time[self.ID_col] == id
+            selected_time['Diff_comments'].loc[sel_list], selected_time['Diff_likes'].loc[sel_list] = \
+                selected_time[self.com_col].loc[sel_list].diff(), selected_time[self.likes_col].loc[sel_list].diff()
+        return selected_time.dropna()
