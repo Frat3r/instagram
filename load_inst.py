@@ -129,14 +129,17 @@ class select_by_time(TransformerMixin):
         return X
 
     def transform(self, inst_data, y=None):
-        time_range = pd.date_range(inst_data[self.time_col][0].floor('24H'),
+        time_range = pd.date_range(inst_data.loc[0, self.time_col].floor('24H'),
                                    inst_data[self.time_col].iloc[-1].ceil('24H'),
                                    freq=self.time_freq)
         selected_time = inst_data.loc[inst_data[self.time_col].isin(time_range)]
         selected_time['Diff_comments'], selected_time['Diff_likes'] =\
             selected_time[self.likes_col], selected_time[self.com_col]
-        for id in inst_data[self.ID_col].unique():
-            sel_list = selected_time[self.ID_col] == id
-            selected_time['Diff_comments'].loc[sel_list], selected_time['Diff_likes'].loc[sel_list] = \
-                selected_time[self.com_col].loc[sel_list].diff(), selected_time[self.likes_col].loc[sel_list].diff()
-        return selected_time.dropna()
+        for inst_id in inst_data[self.ID_col].unique():
+            sel_list = (selected_time[self.ID_col] == inst_id)
+            selected_time.loc[sel_list, 'Diff_comments'], selected_time.loc[sel_list, 'Diff_likes'] = \
+                selected_time.loc[sel_list, self.com_col].diff(), selected_time.loc[sel_list, self.likes_col].diff()
+        selected_time.dropna(inplace=True)
+        selected_time[['Diff_comments', 'Diff_likes']] = selected_time[['Diff_comments', 'Diff_likes']].astype('int64')
+        return selected_time
+
