@@ -51,6 +51,7 @@ It seems that the longer the period of time, the smaller the relative difference
 Statistics show that boxplots for 10 a.m-4 p.m are skewed because of some poorly rated photos, also between 4 a.m and 10 a.m where uploaded photos that found many fans after 6 or 12 days.   
 Let's sum up observations for days  
 <img src="https://user-images.githubusercontent.com/53919928/62840650-81337a80-bc9e-11e9-8252-39e47696748b.png" width="90%"></img>  
-Each regression line is almost parallel to x-axis.
+Each regression line is almost parallel to x-axis.  
+The first conclusion may be that after a few days the time of photo upload doesn't matter. This proposal may be premature, so some tests are needed. 
 
 
