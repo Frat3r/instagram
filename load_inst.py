@@ -94,11 +94,13 @@ def create_time_intervals(dividing_points):
 
 
 class hours_interval(TransformerMixin):
-    def __init__(self, dividing_points=range(0, 25, 6), new_col_name='Time_intervals', int_time_col='First_app'):
+    def __init__(self, dividing_points=range(0, 25, 6), new_col_name='Time_intervals', int_time_col='First_app',
+                 low_int=False):
         self.dividing_points = dividing_points
         self.new_col_name = new_col_name
         self.int_time_col = int_time_col
-
+        self.low_int = low_int
+        
     def fit(self, inst_data, y=None):
         return self
 
@@ -110,6 +112,8 @@ class hours_interval(TransformerMixin):
         intervals_ind = [X.loc[(X[self.int_time_col].dt.floor('1H').dt.hour >= low_lim) &
                                (X[self.int_time_col].dt.floor('1H').dt.hour <= up_lim)].index
                          for low_lim, up_lim in zip(self.dividing_points, up_div_points)]
+        if self.low_int:
+            intervals_list, intervals_ind = intervals_list[::-1], intervals_ind[::-1]
         for interval, interval_ind in zip(intervals_list, intervals_ind):
             X[self.new_col_name].loc[interval_ind] = interval
         return X
