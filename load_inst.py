@@ -120,11 +120,10 @@ class hours_interval(TransformerMixin):
 
       
 class select_by_time(TransformerMixin):
-    def __init__(self, time_freq='6h', time_col='Time', diff_col='Diff', ID_col='ID', com_col='Comments',
+    def __init__(self, time_freq='6h', time_col='Time', ID_col='ID', com_col='Comments',
                  likes_col='Likes'):
         self.time_freq = time_freq
         self.time_col = time_col
-        self.diff_col = diff_col
         self.ID_col = ID_col
         self.likes_col = likes_col
         self.com_col = com_col
