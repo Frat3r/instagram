@@ -146,3 +146,20 @@ class select_by_time(TransformerMixin):
         selected_time[['Diff_comments', 'Diff_likes']] = selected_time[['Diff_comments', 'Diff_likes']].astype('int64')
         return selected_time
 
+
+class group_by_days(TransformerMixin):
+    def __init__(self, to_group_col='Diff_likes', use_fun='sum', time_col='Time', time_int_col='Time_intervals'):
+        self.time_col = time_col
+        self.time_int_col = time_int_col
+        self.to_group_col = to_group_col
+        self.use_fun = use_fun
+
+    def fit(self, X, y=None):
+        return X
+
+    def transform(self, inst_data, y=None):
+            tmp_inst_data = inst_data.copy()
+            tmp_inst_data['Time'] = tmp_inst_data['Time'].dt.floor('1D')
+            ret_ints_data = tmp_inst_data.groupby([self.time_col, self.time_int_col],
+                                                  as_index=False, sort=False)[self.to_group_col].agg(self.use_fun)
+            return ret_ints_data
