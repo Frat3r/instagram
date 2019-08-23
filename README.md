@@ -25,7 +25,7 @@ and whole data plotted:
 
 ## Initial analysis  
 ### Data transforms  
-First I transformed the data so that only the rows containing information about the next hours and days from the upload remain. For example here is head of dataframe containing information about first hour from upload  
+First I transformed the data so that only the rows containing information about the next hours and days from the upload remain. For example here is head of dataframe containing information about first hour since upload  
 <img src="https://user-images.githubusercontent.com/53919928/62840111-98219f00-bc95-11e9-950e-aebb88df3733.png" width="80%"></img>  
 Next I divided upload time into 3 intervals:  
 * 4 a.m-7 a.m   
@@ -53,6 +53,20 @@ Statistics show that boxplots for 10 a.m-4 p.m are skewed because of some poorly
 Let's sum up observations for days  
 <img src="https://user-images.githubusercontent.com/53919928/62840650-81337a80-bc9e-11e9-8252-39e47696748b.png" width="90%"></img>  
 Each regression line is almost parallel to x-axis.  
-The first conclusion may be that after a few days the time of photo upload doesn't matter. This proposal may be premature, so some tests are needed. 
+The first conclusion may be that after a few days the time of photo upload doesn't matter. This proposal may be premature, so some tests are needed.  
+Before moving to test let's look at [correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence)  
+
+|     	| Correlation                             	|
+|-----	|----------------------------------	|
+| 1h  	| 0.006522701649949623             	|
+| 6h  	| -0.25816888239888214             	|
+| 12h 	| -0.31037895946598903             	|
+| 1d  	| -0.12875793666188126             	|
+| 6d  	| 0.06196442375367117              	|
+| 12d 	| -0.01825883695090743		 	|  
+
+We can see that it is mostly close to 0, but when we look at correlation after 6 and 12 hours since upload we can see moderate influence.  
+[Kruskal-Wallis test](https://en.wikipedia.org/wiki/Kruskal%E2%80%93Wallis_one-way_analysis_of_variance) proved that number of likes doesn't depends on time of upload ([p-value](https://en.wikipedia.org/wiki/P-value) was greater than 0.05, you may find exact numbers in *inst_analysis_likes.ipynb*). One exception was result of test after 12h since upload - p-value=0.0404, so groups should significantly differ, but [post hoc_analysis](https://en.wikipedia.org/wiki/Post_hoc_analysis) showed that no group is much different from another. 
+
 
 
