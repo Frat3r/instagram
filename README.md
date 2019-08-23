@@ -54,7 +54,7 @@ Let's sum up observations for days
 <img src="https://user-images.githubusercontent.com/53919928/62840650-81337a80-bc9e-11e9-8252-39e47696748b.png" width="90%"></img>  
 Each regression line is almost parallel to x-axis.  
 The first conclusion may be that after a few days the time of photo upload doesn't matter. This proposal may be premature, so some tests are needed.  
-Before moving to test let's look at [correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence)  
+Before moving to test let's look at [correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence) between number of likes and upload time
 
 |     	| Correlation                             	|
 |-----	|----------------------------------	|
