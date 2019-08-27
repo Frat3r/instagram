@@ -25,7 +25,7 @@ and whole data plotted:
 
 ## Initial analysis  
 ### Data transforms  
-First I transformed the data so that only the rows containing information about the next hours and days from the upload remain. For example here is head of dataframe containing information about first hour since upload  
+First I transformed the data so that only the rows containing information about the next hours and days since the upload remain. For example here is head of dataframe containing information about first hour since upload  
 <img src="https://user-images.githubusercontent.com/53919928/62840111-98219f00-bc95-11e9-950e-aebb88df3733.png" width="80%"></img>  
 Next I divided upload time into 3 intervals:  
 * 4 a.m-7 a.m   
