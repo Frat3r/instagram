@@ -1,6 +1,7 @@
 # instagram
-File *load_inst.py* (name will be probably changed) contains every function or class written by me and used in this project.  
-File *inst_analysis_likes.ipynb* is notebook with code which was used to obtain results below.
+File *load_inst.py* contains every function or class written by me and used in this project.  
+File *inst_analysis_likes.ipynb* is notebook with code which was used to obtain results below.  
+File *inst_analysis_likes_no_output.ipynb* is the same as *inst_analysis_likes.ipynb*, but without any output, so you may look at the code via github.
 ## Introduction
 	
 Project is based on data about instagram photos of user [mkaciubapl](https://www.instagram.com/mkaciubapl/). You can find oryginal data [here](https://www.dropbox.com/sh/hobhqg7rvreweml/AADIfllpRt6cDwXFM5gGeh1Qa?dl=0).  
