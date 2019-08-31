@@ -152,17 +152,21 @@ class select_by_time(TransformerMixin):
 
 
 class group_by_days(TransformerMixin):
-    def __init__(self, to_group_col='Diff_likes', use_fun='sum', time_col='Time', time_int_col='Time_intervals'):
+    def __init__(self, to_group_col='Diff_likes', use_fun='sum', time_col='Time', time_int_col='Time_intervals', 
+                 sort_by_col=None):
         self.time_col = time_col
         self.time_int_col = time_int_col
         self.to_group_col = to_group_col
         self.use_fun = use_fun
-
+        self.sort_by_col = sort_by_col
+        
     def fit(self, X, y=None):
         return X
 
     def transform(self, inst_data, y=None):
             tmp_inst_data = inst_data.copy()
+            if self.sort_by_col:
+                tmp_inst_data.sort_values(by=self.sort_by_col, inplace=True)
             tmp_inst_data[self.time_col] = tmp_inst_data[self.time_col].dt.floor('1D')
             ret_inst_data = tmp_inst_data.groupby([self.time_col, self.time_int_col],
                                                   as_index=False, sort=False)[self.to_group_col].agg(self.use_fun)
@@ -170,12 +174,14 @@ class group_by_days(TransformerMixin):
 
           
 class get_day_of_week(TransformerMixin):
-    def __init__(self, time_col='Time', prev_day=False, name_of_day=True, day_col_name='Day_of_week'):
+    def __init__(self, time_col='Time', prev_day=False, name_of_day=True, day_col_name='Day_of_week',
+                 day_col_num='Day_of_week_number'):
         self.time_col = time_col
         self.prev_day = prev_day
         self.name_of_day = name_of_day
         self.day_col_name = day_col_name
-
+        self.day_col_num = day_col_num
+        
     def fit(self, X, y=None):
         return X
 
@@ -184,7 +190,5 @@ class get_day_of_week(TransformerMixin):
         if self.name_of_day:
             tmp_inst_data[self.day_col_name] = (tmp_inst_data[self.time_col] -
                                                 dt.timedelta(hours=1) * self.prev_day).dt.day_name()
-        else:
-            tmp_inst_data[self.day_col_name] = tmp_inst_data[self.time_col].dt.dayofweek - self.prev_day
-            tmp_inst_data[self.day_col_name][tmp_inst_data[self.day_col_name] == -1] = 6
+        tmp_inst_data[self.day_col_num] = (tmp_inst_data[self.time_col].dt.dayofweek - self.prev_day) % 7
         return tmp_inst_data
