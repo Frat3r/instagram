@@ -163,7 +163,28 @@ class group_by_days(TransformerMixin):
 
     def transform(self, inst_data, y=None):
             tmp_inst_data = inst_data.copy()
-            tmp_inst_data['Time'] = tmp_inst_data['Time'].dt.floor('1D')
+            tmp_inst_data[self.time_col] = tmp_inst_data[self.time_col].dt.floor('1D')
             ret_inst_data = tmp_inst_data.groupby([self.time_col, self.time_int_col],
                                                   as_index=False, sort=False)[self.to_group_col].agg(self.use_fun)
             return ret_inst_data
+
+          
+class get_day_of_week(TransformerMixin):
+    def __init__(self, time_col='Time', prev_day=False, name_of_day=True, day_col_name='Day_of_week'):
+        self.time_col = time_col
+        self.prev_day = prev_day
+        self.name_of_day = name_of_day
+        self.day_col_name = day_col_name
+
+    def fit(self, X, y=None):
+        return X
+
+    def transform(self, inst_data, y=None):
+        tmp_inst_data = inst_data.copy()
+        if self.name_of_day:
+            tmp_inst_data[self.day_col_name] = (tmp_inst_data[self.time_col] -
+                                                dt.timedelta(hours=1) * self.prev_day).dt.day_name()
+        else:
+            tmp_inst_data[self.day_col_name] = tmp_inst_data[self.time_col].dt.dayofweek - self.prev_day
+            tmp_inst_data[self.day_col_name][tmp_inst_data[self.day_col_name] == -1] = 6
+        return tmp_inst_data
