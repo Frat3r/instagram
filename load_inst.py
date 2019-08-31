@@ -175,13 +175,14 @@ class group_by_days(TransformerMixin):
           
 class get_day_of_week(TransformerMixin):
     def __init__(self, time_col='Time', prev_day=False, name_of_day=True, day_col_name='Day_of_week',
-                 day_col_num='Day_of_week_number'):
+                 day_col_num='Day_of_week_number', sort_by_num=True):
         self.time_col = time_col
         self.prev_day = prev_day
         self.name_of_day = name_of_day
         self.day_col_name = day_col_name
         self.day_col_num = day_col_num
-        
+        self.sort_by_num = sort_by_num
+
     def fit(self, X, y=None):
         return X
 
@@ -191,4 +192,6 @@ class get_day_of_week(TransformerMixin):
             tmp_inst_data[self.day_col_name] = (tmp_inst_data[self.time_col] -
                                                 dt.timedelta(hours=1) * self.prev_day).dt.day_name()
         tmp_inst_data[self.day_col_num] = (tmp_inst_data[self.time_col].dt.dayofweek - self.prev_day) % 7
+        if self.sort_by_num:
+            tmp_inst_data.sort_values(by=self.day_col_num, inplace=True)
         return tmp_inst_data
