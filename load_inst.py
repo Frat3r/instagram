@@ -146,6 +146,9 @@ class select_by_time(TransformerMixin):
             sel_list = (selected_time[self.ID_col] == inst_id)
             selected_time.loc[sel_list, 'Diff_comments'], selected_time.loc[sel_list, 'Diff_likes'] = \
                 selected_time.loc[sel_list, self.com_col].diff(), selected_time.loc[sel_list, self.likes_col].diff()
+        unique_time = pd.Series(selected_time[self.time_col].unique())
+        black_list = unique_time.loc[unique_time.diff() > time_range[1] - time_range[0]]
+        selected_time.loc[selected_time[self.time_col].isin(black_list), ['Diff_comments', 'Diff_likes']] = np.nan
         selected_time.dropna(inplace=True)
         selected_time[['Diff_comments', 'Diff_likes']] = selected_time[['Diff_comments', 'Diff_likes']].astype('int64')
         return selected_time
