@@ -2,13 +2,14 @@ import pandas as pd
 import numpy as np
 import pickle
 import datetime as dt
+import os.path as path
 from sklearn.base import TransformerMixin
 pd.options.mode.chained_assignment = None
 
 
 def load_instagram(pickle_name='pickled_inst', col_n=('Time', 'ID', 'Likes', 'Comments', 'Followers', 'Char_in_desrc',
                                                       'Tags', 'First_app'), load_old=True, time_round=True):
-    import os.path as path
+    
     org_time = path.getmtime('instagram.csv')
 
     def no_pickle(pickle_name):
@@ -118,8 +119,8 @@ class hours_interval(TransformerMixin):
         for interval, interval_ind in zip(intervals_list, intervals_ind):
             X[self.new_col_name].loc[interval_ind] = interval
        if self.full_day:
-            X[self.new_col_name].loc[X[self.int_time_col].dt.floor('1H').dt.hour == self.dividing_points[0]]\
-                = '%s-%s' % (self.dividing_points[-2], self.dividing_points[-1])    
+            is_div0 = X[self.int_time_col].dt.hour == self.dividing_points[0]
+            X.loc[is_div0, self.new_col_name] = '%s-%s' % (self.dividing_points[-2], self.dividing_points[-1])    
         return X
 
       
@@ -144,8 +145,8 @@ class select_by_time(TransformerMixin):
             selected_time[self.likes_col], selected_time[self.com_col]
         for inst_id in inst_data[self.ID_col].unique():
             sel_list = (selected_time[self.ID_col] == inst_id)
-            selected_time.loc[sel_list, 'Diff_comments'], selected_time.loc[sel_list, 'Diff_likes'] = \
-                selected_time.loc[sel_list, self.com_col].diff(), selected_time.loc[sel_list, self.likes_col].diff()
+            selected_time.loc[sel_list, 'Diff_comments'] = selected_time.loc[sel_list, self.com_col].diff()
+            selected_time.loc[sel_list, 'Diff_likes'] = selected_time.loc[sel_list, self.likes_col].diff()
         unique_time = pd.Series(selected_time[self.time_col].unique())
         black_list = unique_time.loc[unique_time.diff() > time_range[1] - time_range[0]]
         selected_time.loc[selected_time[self.time_col].isin(black_list), ['Diff_comments', 'Diff_likes']] = np.nan
