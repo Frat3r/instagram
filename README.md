@@ -4,7 +4,7 @@ File *inst_analysis_likes.ipynb* is notebook with code which was used to obtain 
 File *inst_analysis_likes_no_output.ipynb* is the same as *inst_analysis_likes.ipynb*, but without any output, so you may look at the code via github.
 ## Introduction
 	
-Project is based on data about instagram photos of user [mkaciubapl](https://www.instagram.com/mkaciubapl/). You can find oryginal data [here](https://www.dropbox.com/sh/hobhqg7rvreweml/AADIfllpRt6cDwXFM5gGeh1Qa?dl=0).  
+Project is based on data about instagram photos of user [mkaciubapl](https://www.instagram.com/mkaciubapl/). You can find original data [here](https://www.dropbox.com/sh/hobhqg7rvreweml/AADIfllpRt6cDwXFM5gGeh1Qa?dl=0).  
 The initial  goal is to find the best time to upload photos (i.e. time so that the photos get the most likes).  
 
 ## About data
