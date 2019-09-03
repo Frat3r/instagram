@@ -89,10 +89,10 @@ It looks that number of likes increases as evening approaches. There are many ob
 We can see that distributions of changes in numbers of likes clearly aren't normal, most likely for changes is beeing close to zero, but not negative.  
 #### Statistics
 Now we will look at some basic statistics. We will start with basic data (including observations without any changes).  
-<img src="https://user-images.githubusercontent.com/53919928/64136537-7928af80-cdf2-11e9-9632-12c36873ca58.png" width="50%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136929-446a2780-cdf5-11e9-866e-99967a6f3989.png" width="50%">  
 Mean for every time interval is close to zero and every quartile equals zero. There nothing interesting here.  
 Now we remove 'zero' observations  
-<img src="https://user-images.githubusercontent.com/53919928/64136534-6f06b100-cdf2-11e9-9eb8-bb25e9fefe42.png" width="50%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136935-4af89f00-cdf5-11e9-8bbe-433f072ac3a4.png" width="50%"></img>  
 It reduced number of observations by thousands, but now it's clear that most of stagnation was in night and early morning (before 6), and most changes happened just before midday and at evening. It also seems that photos get most likes between 18 and 21, but to prove it we need statistical tests.  
 ### Each day as single observation  
 From now on, single observation will be the sum of the change in the number of likes of all photos in a given time interval on a given day. Transforming data in this case was slightly harder than in previous one. Let start as before with boxplots.  
@@ -106,8 +106,8 @@ Let's take a look at histograms
 It seems that probability of changes in numbers of likes is more uniformly distributed than before (but it doesn't look like [uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).  
 ### Statistics  
 First statistics of all observations  
- <img src="https://user-images.githubusercontent.com/53919928/64136528-67dfa300-cdf2-11e9-88dd-aeead5481bf5.png" width="50%">  
+</img> <img src="https://user-images.githubusercontent.com/53919928/64136940-52b84380-cdf5-11e9-96cc-187defdd3811.png" width="50%"></img>  
 Intervals 9-12 and 18-21 clearly have the highest mean. Median for almost every interval is the same, it equals zero.  
-<img src="https://user-images.githubusercontent.com/53919928/64136526-62825880-cdf2-11e9-90bc-1635049ca34b.png" width="50%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136945-58158e00-cdf5-11e9-8c1e-23586f9e4f97.png" width="50%"></img>  
 After removing 'zero' observations (about half of the total of observations). It is clear that interval 18-21 has the greates mean and median. Interval 9-12 is winner if it comes to the highest number of nonzero observations.  
 Just like before some tests are needed to prove if differences between time intervals are statistically significant.
