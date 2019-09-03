@@ -81,35 +81,33 @@ I considered two cases:
 ### Each photo as single observation  
 #### Plots
 First look at boxplot of data with every observation  
-<img src="https://user-images.githubusercontent.com/53919928/63815855-67e52c00-c936-11e9-8a95-66d889b17b4f.png" width="60%"></img>  
-It doesn't seem very helpful. Let's discard observations with no change or change higher than 150. We get  
-<img src="https://user-images.githubusercontent.com/53919928/63815857-687dc280-c936-11e9-8b59-6009696f219a.png" width="60%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136430-c9534200-cdf1-11e9-8866-bf0a8ddbf779.png" width="60%"></img> 
+It doesn't seem very helpful. Let's discard observations with no change. We get  
+<img src="https://user-images.githubusercontent.com/53919928/64136431-c9534200-cdf1-11e9-8966-825d2f480547.png" width="60%"></img>  
 It looks that number of likes increases as evening approaches. There are many observations in each interval, so it is reasonable to plot histograms.  
-<img src="https://user-images.githubusercontent.com/53919928/63816963-7897a100-c93a-11e9-8f6d-e33bb9e9e1dc.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815931-9c58e800-c936-11e9-9e4a-edd67ed69d7e.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815932-9c58e800-c936-11e9-9777-d4226ebd1e01.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815933-9cf17e80-c936-11e9-846c-cabd02422b5f.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815934-9cf17e80-c936-11e9-984d-4cfdcb4e85e1.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815935-9cf17e80-c936-11e9-84e4-4953982c4e2c.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815936-9cf17e80-c936-11e9-9307-34d6614df002.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63815937-9cf17e80-c936-11e9-80d2-64e7339326ee.png" width="45%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136402-a032b180-cdf1-11e9-8132-c96b150b0acf.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136403-a032b180-cdf1-11e9-9f47-3d309a5f9ba5.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136404-a032b180-cdf1-11e9-9ccf-fc83518d6aee.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136405-a0cb4800-cdf1-11e9-84d6-d6db36b7d463.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136406-a0cb4800-cdf1-11e9-90f5-4682e1e50557.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136407-a0cb4800-cdf1-11e9-93be-9b1d34ced342.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136408-a0cb4800-cdf1-11e9-8863-69664b8a70a7.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136409-a163de80-cdf1-11e9-8642-9c9c4e544f9f.png" width="45%"></img>  
 We can see that distributions of changes in numbers of likes clearly aren't normal, most likely for changes is beeing close to zero, but not negative.  
 #### Statistics
 Now we will look at some basic statistics. We will start with basic data (including observations without any changes).  
-<img src="https://user-images.githubusercontent.com/53919928/63817461-ba294b80-c93c-11e9-84a2-1642745fee48.png" width="50%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136537-7928af80-cdf2-11e9-9632-12c36873ca58.png" width="50%"></img>  
 Mean for every time interval is close to zero and every quartile equals zero. There nothing interesting here.  
 Now we remove 'zero' observations  
-<img src="https://user-images.githubusercontent.com/53919928/63817607-64a16e80-c93d-11e9-95d3-2706d158eec7.png" width="50%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136534-6f06b100-cdf2-11e9-9eb8-bb25e9fefe42.png" width="50%"></img>  
 It reduced number of observations by thousands, but now it's clear that most of stagnation was in night and early morning (before 6), and most changes happened just before midday and at evening. It also seems that photos get most likes between 18 and 21, but to prove it we need statistical tests.  
 ### Each day as single observation  
 From now on, single observation will be the sum of the change in the number of likes of all photos in a given time interval on a given day. Transforming data in this case was slightly harder than in previous one. Let start as before with boxplots.  
 #### Plots  
-<img src="https://user-images.githubusercontent.com/53919928/63815948-a1b63280-c936-11e9-8f94-7ab0006d5b52.png" width="60%"></img>  
-Because of [outliers](https://en.wikipedia.org/wiki/Outlier) plot is not very legible. I removed observations with no changes and with changes greater than 150. It resulted in the plot below  
-<img src="https://user-images.githubusercontent.com/53919928/63815950-a1b63280-c936-11e9-80c2-0b90870cbbc1.png" width="60%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136315-17b41100-cdf1-11e9-84d7-caf53e4ad260.png" width="60%"></img>  
+We can see, that there are many observations with zero change so medians are exact zero or very close to it. I removed them, it resulted in the plot below  
+<img src="https://user-images.githubusercontent.com/53919928/64136316-17b41100-cdf1-11e9-8eca-c6218a9ad12e.png" width="60%"></img>  
 It seems that the greatest positive changes in numbers of likes occur between 18 and 21.  
 Let's take a look at histograms  
-<img src="https://user-images.githubusercontent.com/53919928/63816033-e93cbe80-c936-11e9-8357-7a622588da7d.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816034-e9d55500-c936-11e9-905d-f01c3f06e85c.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816035-e9d55500-c936-11e9-9067-87005d8e1063.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816036-e9d55500-c936-11e9-99bc-acb51cf399a0.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816037-ea6deb80-c936-11e9-8f65-b20701d94f89.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816038-ea6deb80-c936-11e9-871b-3b6aa221c4a4.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816039-ea6deb80-c936-11e9-819b-8b824e1c1f76.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/63816040-ea6deb80-c936-11e9-9d4a-7051f2946113.png" width="45%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/64136257-c60b8680-cdf0-11e9-8772-c2748a6e4ce8.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136258-c6a41d00-cdf0-11e9-9616-177e1d6e0edb.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136264-c73cb380-cdf0-11e9-8a6c-5fb46b21575b.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136259-c6a41d00-cdf0-11e9-9e57-990cc7eaa148.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136260-c6a41d00-cdf0-11e9-9814-9556df0e3a4a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136261-c6a41d00-cdf0-11e9-8267-e164c4b56e26.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136262-c73cb380-cdf0-11e9-8143-c0daa30ba216.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136263-c73cb380-cdf0-11e9-8d07-70780ffbb2a3.png" width="45%"></img>  
 It seems that probability of changes in numbers of likes is more uniformly distributed than before (but it doesn't look like [uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).  
 ### Statistics  
 First statistics of all observations  
-<img src="https://user-images.githubusercontent.com/53919928/63818951-a9300880-c943-11e9-9c9c-9834131bd221.png" width="50%"></img>  
-Interval 18-21 clearly has the highest mean. Median for every interval is the same, it equals zero.  
-<img src="https://user-images.githubusercontent.com/53919928/63818969-ba791500-c943-11e9-8404-3d134fca0945.png" width="50%"></img>  
+ <img src="https://user-images.githubusercontent.com/53919928/64136528-67dfa300-cdf2-11e9-88dd-aeead5481bf5.png" width="50%">  
+Intervals 9-12 and 18-21 clearly have the highest mean. Median for almost every interval is the same, it equals zero.  
+<img src="https://user-images.githubusercontent.com/53919928/64136526-62825880-cdf2-11e9-90bc-1635049ca34b.png" width="50%"></img>  
 After removing 'zero' observations (about half of the total of observations). It is clear that interval 18-21 has the greates mean and median. Interval 9-12 is winner if it comes to the highest number of nonzero observations.  
-<img src="https://user-images.githubusercontent.com/53919928/63818976-c369e680-c943-11e9-8f58-b45faf4fe91e.png" width="50%"></img>  
-After removing outliers interval 18-21 loses big part of its advantage over others intervals in term of mean, but still it has the highest one.  
 Just like before some tests are needed to prove if differences between time intervals are statistically significant.
