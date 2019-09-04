@@ -81,7 +81,7 @@ I considered two cases:
 ### Each photo as single observation  
 #### Plots
 First look at boxplot of data with every observation  
-<img src="https://user-images.githubusercontent.com/53919928/64136430-c9534200-cdf1-11e9-8866-bf0a8ddbf779.png" width="60%"></img> 
+<img src="https://user-images.githubusercontent.com/53919928/64136430-c9534200-cdf1-11e9-8866-bf0a8ddbf779.png" width="60%"></img>  
 It doesn't seem very helpful. Let's discard observations with no change. We get  
 <img src="https://user-images.githubusercontent.com/53919928/64136431-c9534200-cdf1-11e9-8966-825d2f480547.png" width="60%"></img>  
 It looks that number of likes increases as evening approaches. There are many observations in each interval, so it is reasonable to plot histograms.  
@@ -94,6 +94,16 @@ Mean for every time interval is close to zero and every quartile equals zero. Th
 Now we remove 'zero' observations  
 <img src="https://user-images.githubusercontent.com/53919928/64136935-4af89f00-cdf5-11e9-8bbe-433f072ac3a4.png" width="50%"></img>  
 It reduced number of observations by thousands, but now it's clear that most of stagnation was in night and early morning (before 6), and most changes happened just before midday and at evening. It also seems that photos get most likes between 18 and 21, but to prove it we need statistical tests.  
+
+#### Tests
+First I used Kruskal-Wallis test on data with 'zero' observations. It showed that there are statistically significant differences between groups (p-value was very close to 0). Let's look at the results of post-hoc test
+<img src="https://user-images.githubusercontent.com/53919928/64299059-077a6e00-cf78-11e9-885d-9bf95f7d685e.png" width="70%"></img>  
+Red color means that p-value is small and differences are significant. It's clearly visible that intervals 0-3 and 3-6 differ the most.  
+Now observations without zeros.  
+Kruskal-Wallis test also resulted in very small p-value. Table of post-hoc test is below  
+<img src="https://user-images.githubusercontent.com/53919928/64299071-14975d00-cf78-11e9-9be6-3e0ab4b23d1f.png" width="70%"></img>  
+Without zeros interval 3-6 doesn't differ so much and 0-3 differs from every other interval.
+
 ### Each day as single observation  
 From now on, single observation will be the sum of the change in the number of likes of all photos in a given time interval on a given day. Transforming data in this case was slightly harder than in previous one. Let start as before with boxplots.  
 #### Plots  
@@ -104,10 +114,18 @@ It seems that the greatest positive changes in numbers of likes occur between 18
 Let's take a look at histograms  
 <img src="https://user-images.githubusercontent.com/53919928/64136257-c60b8680-cdf0-11e9-8772-c2748a6e4ce8.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136258-c6a41d00-cdf0-11e9-9616-177e1d6e0edb.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136264-c73cb380-cdf0-11e9-8a6c-5fb46b21575b.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136259-c6a41d00-cdf0-11e9-9e57-990cc7eaa148.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136260-c6a41d00-cdf0-11e9-9814-9556df0e3a4a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136261-c6a41d00-cdf0-11e9-8267-e164c4b56e26.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136262-c73cb380-cdf0-11e9-8143-c0daa30ba216.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136263-c73cb380-cdf0-11e9-8d07-70780ffbb2a3.png" width="45%"></img>  
 It seems that probability of changes in numbers of likes is more uniformly distributed than before (but it doesn't look like [uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).  
-### Statistics  
+#### Statistics  
 First statistics of all observations  
 </img> <img src="https://user-images.githubusercontent.com/53919928/64136940-52b84380-cdf5-11e9-96cc-187defdd3811.png" width="50%"></img>  
 Intervals 9-12 and 18-21 clearly have the highest mean. Median for almost every interval is the same, it equals zero.  
 <img src="https://user-images.githubusercontent.com/53919928/64136945-58158e00-cdf5-11e9-8c1e-23586f9e4f97.png" width="50%"></img>  
 After removing 'zero' observations (about half of the total of observations). It is clear that interval 18-21 has the greates mean and median. Interval 9-12 is winner if it comes to the highest number of nonzero observations.  
-Just like before some tests are needed to prove if differences between time intervals are statistically significant.
+Just like before some tests are needed to prove if differences between time intervals are statistically significant.  
+#### Tests  
+First test for every observation (with 'zeros'). Kruskal-Wallis test resulted in very small p-value. Let's do post-hoc test.   
+<img src="https://user-images.githubusercontent.com/53919928/64299080-1eb95b80-cf78-11e9-978b-8ea3999e2426.png" width="70%"></img>  
+Table looks very simmilar to table of test for every photo as single observation - intervals 0-3 and 3-6 differ the most. Instresting thing is that those intervals are the only ones which differ.  
+Kruskal-Wallis test for data without 'zeros' resulted also in very small p-value.  
+<img src="https://user-images.githubusercontent.com/53919928/64299093-2842c380-cf78-11e9-8e5e-8e82329a64f2.png" width="70%"></img>  
+Results of post-hoc test are very simmilar to those above, but now there are more pairs of differing intervals.
+
