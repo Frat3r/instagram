@@ -50,7 +50,7 @@ Let's do the same for days.
 <img src="https://user-images.githubusercontent.com/53919928/62840510-5811ea80-bc9c-11e9-8015-c0e04ebfe986.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/53919928/62840511-5b0cdb00-bc9c-11e9-88bb-157427335080.png" width="30%"></img> <img src="https://user-images.githubusercontent.com/53919928/62840512-5ea06200-bc9c-11e9-85cc-34c77a250091.png" width="30%"></img>   
 It seems that the longer the period of time, the smaller the relative differences.  
 <img src="https://user-images.githubusercontent.com/53919928/62840570-159cdd80-bc9d-11e9-9246-02dfc7b611e6.png" width="50%"></img> <img src="https://user-images.githubusercontent.com/53919928/62840571-1cc3eb80-bc9d-11e9-8f36-edd9c9b97988.png" width="50%"></img> <img src="https://user-images.githubusercontent.com/53919928/62840589-39f8ba00-bc9d-11e9-9014-d6e73fdc3495.png" width="50%"></img>  
-Statistics show that boxplots for 10 a.m-4 p.m are skewed because of some poorly rated photos, also between 4 a.m and 10 a.m where uploaded photos that found many fans after 6 or 12 days.   
+Statistics show that boxplots for 10 a.m-4 p.m are skewed because of some poorly rated photos, also between 4 a.m and 10 a.m were uploaded photos that found many fans after 6 or 12 days.   
 Let's sum up observations for days  
 <img src="https://user-images.githubusercontent.com/53919928/62840650-81337a80-bc9e-11e9-8252-39e47696748b.png" width="90%"></img>  
 Each regression line is almost parallel to x-axis.  
