@@ -201,6 +201,9 @@ class get_day_of_week(TransformerMixin):
         return tmp_inst_data
 
       
-def reindex_ph(data, my_key=lambda x: float(x.replace('-',''))):
-    tmp = data.reindex(sorted(data.columns, key=my_key), axis=1)
+def reindex_ph(data, my_key=lambda x: float(x.replace('-', '')), sort=True):
+    if sort:
+        tmp = data.reindex(sorted(data.columns, key=my_key), axis=1)
+    else:
+        tmp = data.reindex(my_key, axis=1)
     return tmp.reindex(tmp.columns, axis=0)
