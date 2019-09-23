@@ -126,9 +126,10 @@ class hours_interval(TransformerMixin):
       
 class select_by_time(TransformerMixin):
     def __init__(self, time_freq='6h', time_col='Time', ID_col='ID', com_col='Comments',
-                 likes_col='Likes'):
+                 likes_col='Likes', first_app_col='First_app'):
         self.time_freq = time_freq
         self.time_col = time_col
+        self.f_app_col = first_app_col
         self.ID_col = ID_col
         self.likes_col = likes_col
         self.com_col = com_col
@@ -141,12 +142,27 @@ class select_by_time(TransformerMixin):
                                    inst_data[self.time_col].iloc[-1].ceil('24H'),
                                    freq=self.time_freq)
         selected_time = inst_data.loc[inst_data[self.time_col].isin(time_range)]
-        selected_time['Diff_comments'], selected_time['Diff_likes'] =\
-            selected_time[self.likes_col], selected_time[self.com_col]
-        for inst_id in inst_data[self.ID_col].unique():
+        selected_time['Diff_likes'] = selected_time[self.likes_col]
+        selected_time['Diff_comments'] = selected_time[self.com_col]
+        inst_ID_unique = inst_data[self.ID_col].unique()
+        first_row_IDs = [inst_data.loc[inst_data[self.ID_col] == s, [self.time_col, self.f_app_col]].iloc[0]
+                         for s in inst_ID_unique]
+        first_0 = [one_ID.dt.floor(self.time_freq)[self.time_col] == one_ID.dt.floor(self.time_freq)[self.f_app_col]
+                   for one_ID in first_row_IDs]
+        for inst_id, f0 in zip(inst_ID_unique, first_0):
             sel_list = (selected_time[self.ID_col] == inst_id)
-            selected_time.loc[sel_list, 'Diff_comments'] = selected_time.loc[sel_list, self.com_col].diff()
-            selected_time.loc[sel_list, 'Diff_likes'] = selected_time.loc[sel_list, self.likes_col].diff()
+            if f0:
+                list_0l = [0]
+                list_0c = [0]
+                list_0l.extend(selected_time.loc[sel_list, self.likes_col].values)
+                list_0c.extend(selected_time.loc[sel_list, self.com_col].values)
+                likes_to_diff = pd.Series(list_0l)
+                com_to_diff = pd.Series(list_0c)
+                selected_time.loc[sel_list, 'Diff_likes'] = likes_to_diff.diff().values[1:]
+                selected_time.loc[sel_list, 'Diff_comments'] = com_to_diff.diff().values[1:]
+            else:
+                selected_time.loc[sel_list, 'Diff_likes'] = selected_time.loc[sel_list, self.likes_col].diff()
+                selected_time.loc[sel_list, 'Diff_comments'] = selected_time.loc[sel_list, self.com_col].diff()
         unique_time = pd.Series(selected_time[self.time_col].unique())
         black_list = unique_time.loc[unique_time.diff() > time_range[1] - time_range[0]]
         selected_time.loc[selected_time[self.time_col].isin(black_list), ['Diff_comments', 'Diff_likes']] = np.nan
@@ -207,3 +223,9 @@ def reindex_ph(data, my_key=lambda x: float(x.replace('-', '')), sort=True):
     else:
         tmp = data.reindex(my_key, axis=1)
     return tmp.reindex(tmp.columns, axis=0)
+  
+
+def two_colors(val, alpha=0.05):
+    color = 'red' if val < alpha else 'black'
+    return 'color: %s' % color
+
