@@ -81,38 +81,38 @@ I considered two cases:
 ### Each photo as single observation  
 #### Plots
 First look at boxplot of data with every observation  
-<img src="https://user-images.githubusercontent.com/53919928/64136430-c9534200-cdf1-11e9-8866-bf0a8ddbf779.png" width="60%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65555938-41fb7900-df2e-11e9-9dc4-ea9121a6881c.png" width="60%"></img>  
 It doesn't seem very helpful. Let's discard observations with no change. We get  
-<img src="https://user-images.githubusercontent.com/53919928/64136431-c9534200-cdf1-11e9-8966-825d2f480547.png" width="60%"></img>  
-It looks that number of likes increases as evening approaches. There are many observations in each interval, so it is reasonable to plot histograms.  
-<img src="https://user-images.githubusercontent.com/53919928/64136402-a032b180-cdf1-11e9-8132-c96b150b0acf.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136403-a032b180-cdf1-11e9-9f47-3d309a5f9ba5.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136404-a032b180-cdf1-11e9-9ccf-fc83518d6aee.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136405-a0cb4800-cdf1-11e9-84d6-d6db36b7d463.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136406-a0cb4800-cdf1-11e9-90f5-4682e1e50557.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136407-a0cb4800-cdf1-11e9-93be-9b1d34ced342.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136408-a0cb4800-cdf1-11e9-8863-69664b8a70a7.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136409-a163de80-cdf1-11e9-8642-9c9c4e544f9f.png" width="45%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65555941-41fb7900-df2e-11e9-9b91-01e6d4b36fbb.png" width="60%"></img>  
+It looks that number of likes increases as evening approaches. It also seems that photo gets most of its likes in time interval of its upload. There are many observations in each interval, so it is reasonable to plot histograms.  
+<img src="https://user-images.githubusercontent.com/53919928/65556370-a539db00-df2f-11e9-94e4-13343f252bf3.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556371-a539db00-df2f-11e9-853c-22d1191ddaa2.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556372-a4a14480-df2f-11e9-9771-cefdefb29e23.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556373-a539db00-df2f-11e9-9590-b9433813fa96.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556374-a539db00-df2f-11e9-8731-81f34c27620d.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556375-a5d27180-df2f-11e9-94d1-883c6834ec52.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556376-a5d27180-df2f-11e9-94fd-56c180468f97.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65556377-a5d27180-df2f-11e9-8eca-148bde646fef.png" width="45%"></img>    
 We can see that distributions of changes in numbers of likes clearly aren't normal, most likely for changes is beeing close to zero, but not negative.  
 #### Statistics
 Now we will look at some basic statistics. We will start with basic data (including observations without any changes).  
-<img src="https://user-images.githubusercontent.com/53919928/64136929-446a2780-cdf5-11e9-866e-99967a6f3989.png" width="50%">  
+<img src="https://user-images.githubusercontent.com/53919928/65556561-3dd05b00-df30-11e9-9298-8283b0d33e1a.png" width="50%">  
 Mean for every time interval is close to zero and every quartile equals zero. There nothing interesting here.  
 Now we remove 'zero' observations  
-<img src="https://user-images.githubusercontent.com/53919928/64136935-4af89f00-cdf5-11e9-8bbe-433f072ac3a4.png" width="50%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65556571-4759c300-df30-11e9-8508-b381989263b6.png" width="50%"></img>  
 It reduced number of observations by thousands, but now it's clear that most of stagnation was in night and early morning (before 6), and most changes happened just before midday and at evening. It also seems that photos get most likes between 18 and 21, but to prove it we need statistical tests.  
 
 #### Tests
 First I used Kruskal-Wallis test on data with 'zero' observations. It showed that there are statistically significant differences between groups (p-value was very close to 0). Let's look at the results of post-hoc test
-<img src="https://user-images.githubusercontent.com/53919928/64299059-077a6e00-cf78-11e9-885d-9bf95f7d685e.png" width="70%"></img>  
-Red color means that p-value is small and differences are significant. It's clearly visible that intervals 0-3 and 3-6 differ the most.  
+<img src="https://user-images.githubusercontent.com/53919928/65556903-a8ce6180-df31-11e9-9a74-d336f43450bd.png" width="70%"></img>  
+Red color means that p-value is small and differences are significant. It's clearly visible that intervals 0-3 and 3-6 differ the most from other intervals.  
 Now observations without zeros.  
 Kruskal-Wallis test also resulted in very small p-value. Table of post-hoc test is below  
-<img src="https://user-images.githubusercontent.com/53919928/64299071-14975d00-cf78-11e9-9be6-3e0ab4b23d1f.png" width="70%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65556917-b5eb5080-df31-11e9-8823-a24171b645ab.png" width="70%"></img>  
 Without zeros interval 3-6 doesn't differ so much and 0-3 differs from every other interval.
 
 ### Each day as single observation  
 From now on, single observation will be the sum of the change in the number of likes of all photos in a given time interval on a given day. Transforming data in this case was slightly harder than in previous one. Let start as before with boxplots.  
 #### Plots  
-<img src="https://user-images.githubusercontent.com/53919928/64136315-17b41100-cdf1-11e9-84d7-caf53e4ad260.png" width="60%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65557028-1b3f4180-df32-11e9-92b0-52c0e1efade0.png" width="60%"></img>  
 We can see, that there are many observations with zero change so medians are exact zero or very close to it. I removed them, it resulted in the plot below  
-<img src="https://user-images.githubusercontent.com/53919928/64136316-17b41100-cdf1-11e9-8eca-c6218a9ad12e.png" width="60%"></img>  
-It seems that the greatest positive changes in numbers of likes occur between 18 and 21.  
+<img src="https://user-images.githubusercontent.com/53919928/65557029-1b3f4180-df32-11e9-8e15-4f0a91646119.png" width="60%"></img>  
+It seems that the greatest positive changes in numbers of likes occur in intervals 6-9 and 18-21.  
 Let's take a look at histograms  
-<img src="https://user-images.githubusercontent.com/53919928/64136257-c60b8680-cdf0-11e9-8772-c2748a6e4ce8.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136258-c6a41d00-cdf0-11e9-9616-177e1d6e0edb.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136264-c73cb380-cdf0-11e9-8a6c-5fb46b21575b.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136259-c6a41d00-cdf0-11e9-9e57-990cc7eaa148.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136260-c6a41d00-cdf0-11e9-9814-9556df0e3a4a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136261-c6a41d00-cdf0-11e9-8267-e164c4b56e26.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136262-c73cb380-cdf0-11e9-8143-c0daa30ba216.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/64136263-c73cb380-cdf0-11e9-8d07-70780ffbb2a3.png" width="45%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65557289-1a5adf80-df33-11e9-8063-5481f44b7b6a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557290-1a5adf80-df33-11e9-9323-70e8e04b5182.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557291-1a5adf80-df33-11e9-9b37-d29d7cfae6cb.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557292-1a5adf80-df33-11e9-85fa-7124f256c96c.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557294-1a5adf80-df33-11e9-9402-7ae3cf1e0a51.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557295-1af37600-df33-11e9-9761-a084301fdfe1.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557296-1af37600-df33-11e9-83ba-2bfe061c9b4f.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557297-1af37600-df33-11e9-8bc3-8f0b8f2b09f4.png" width="45%"></img>   
 It seems that probability of changes in numbers of likes is more uniformly distributed than before (but it doesn't look like [uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).  
 #### Statistics  
 First statistics of all observations  
@@ -123,9 +123,9 @@ After removing 'zero' observations (about half of the total of observations). It
 Just like before some tests are needed to prove if differences between time intervals are statistically significant.  
 #### Tests  
 First test for every observation (with 'zeros'). Kruskal-Wallis test resulted in very small p-value. Let's do post-hoc test.   
-<img src="https://user-images.githubusercontent.com/53919928/64299080-1eb95b80-cf78-11e9-978b-8ea3999e2426.png" width="70%"></img>  
-Table looks very simmilar to table of test for every photo as single observation - intervals 0-3 and 3-6 differ the most. Instresting thing is that those intervals are the only ones which differ.  
+<img src="https://user-images.githubusercontent.com/53919928/65557980-77f02b80-df35-11e9-9f7a-d2824abb2444.png" width="70%"></img>  
+Table looks very simmilar to table of test for every photo as single observation - intervals 0-3 and 3-6 differ the most from other intervals. Instresting thing is that in every differing pair is 0-3 or 3-6.  
 Kruskal-Wallis test for data without 'zeros' resulted also in very small p-value.  
-<img src="https://user-images.githubusercontent.com/53919928/64299093-2842c380-cf78-11e9-8e5e-8e82329a64f2.png" width="70%"></img>  
+<img src="https://user-images.githubusercontent.com/53919928/65558018-8b02fb80-df35-11e9-9924-0090555392bb.png" width="70%"></img>  
 Results of post-hoc test are very simmilar to those above, but now there are more pairs of differing intervals.
 
