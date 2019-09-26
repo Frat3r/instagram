@@ -111,7 +111,7 @@ From now on, single observation will be the sum of the change in the number of l
 We can see, that there are many observations with zero change so medians are exact zero or very close to it. I removed them, it resulted in the plot below  
 <img src="https://user-images.githubusercontent.com/53919928/65557029-1b3f4180-df32-11e9-8e15-4f0a91646119.png" width="60%"></img>  
 It seems that the greatest positive changes in numbers of likes occur in intervals 6-9 and 18-21.  
-Let's take a look at histograms  
+Let's take a look on histograms  
 <img src="https://user-images.githubusercontent.com/53919928/65557289-1a5adf80-df33-11e9-8063-5481f44b7b6a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557290-1a5adf80-df33-11e9-9323-70e8e04b5182.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557291-1a5adf80-df33-11e9-9b37-d29d7cfae6cb.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557292-1a5adf80-df33-11e9-85fa-7124f256c96c.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557294-1a5adf80-df33-11e9-9402-7ae3cf1e0a51.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557295-1af37600-df33-11e9-9761-a084301fdfe1.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557296-1af37600-df33-11e9-83ba-2bfe061c9b4f.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65557297-1af37600-df33-11e9-8bc3-8f0b8f2b09f4.png" width="45%"></img>   
 It seems that probability of changes in numbers of likes is more uniformly distributed than before (but it doesn't look like [uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).  
 #### Statistics  
@@ -127,5 +127,45 @@ First test for every observation (with 'zeros'). Kruskal-Wallis test resulted in
 Table looks very simmilar to table of test for every photo as single observation - intervals 0-3 and 3-6 differ the most from other intervals. Instresting thing is that in every differing pair is 0-3 or 3-6.  
 Kruskal-Wallis test for data without 'zeros' resulted also in very small p-value.  
 <img src="https://user-images.githubusercontent.com/53919928/65558018-8b02fb80-df35-11e9-9924-0090555392bb.png" width="70%"></img>  
-Results of post-hoc test are very simmilar to those above, but now there are more pairs of differing intervals.
+Results of post-hoc test are very simmilar to those above, but now there are more pairs of differing intervals.  
+## Days of week  
+Let now look at numbers of likes in different days of week.  
+I considered two cases:
+* each photo as single observation
+* each day as single observation  
+### Each photo as single observation  
+#### Plots
+First look on boxplot of data with every observation  
+<img src="https://user-images.githubusercontent.com/53919928/65642769-50aa6480-dff0-11e9-8184-7f9a3f5a129a.png" width="60%"></img>  
+Let's discard observations with no change. We get  
+<img src="https://user-images.githubusercontent.com/53919928/65645925-9ae41380-dff9-11e9-8a94-eac11f263905.png" width="60%"></img>  
+In above figures we can see that most of likes photos get in the day they were uploaded. It shouldn't be surprising - photos get most of their likes in short time after upload.  
+Let's take a look on histograms of changes in likes (only non-zero changes)
+<img src="https://user-images.githubusercontent.com/53919928/65645985-d54db080-dff9-11e9-9255-83c299cc5e55.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645986-d54db080-dff9-11e9-9026-cca62b3acac6.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645987-d54db080-dff9-11e9-9ca8-cd9b521e5c55.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645988-d54db080-dff9-11e9-958a-fb9c8bbadb44.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645989-d54db080-dff9-11e9-9e1f-ab4523a59e75.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645991-d5e64700-dff9-11e9-8a7f-9ac452d51784.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645992-d5e64700-dff9-11e9-95f3-7ea171e12e03.png" width="45%"></img>  
+Histograms show that most of changes in numbers of likes are close to zero.  
+#### Statistics  
+First statistics of all observations  
+</img> <img src="https://user-images.githubusercontent.com/53919928/65646331-0bd7fb00-dffb-11e9-8295-d3b8213770d5.png" width="50%"></img>  
+This table doesn't look much instresting. Let's see what will change after removing 'zero' observations.  
+</img> <img src="https://user-images.githubusercontent.com/53919928/65646344-172b2680-dffb-11e9-84ae-93350c855028.png" width="50%"></img>  
+There are many observations without changes - most of them from weekend.  
+#### Tests  
+I conducted the Kruskal-Wallis test for all observations. P-value was very small, so there are significant differences between some pairs.  
+</img> <img src="https://user-images.githubusercontent.com/53919928/65646827-ac7aea80-dffc-11e9-8f08-d1dffa8fa572.png" width="70%"></img>  
+Red color means that two days differ in significant way.  
+Result of test for data without 'zero' observations was also very small.  
+</img> <img src="https://user-images.githubusercontent.com/53919928/65647003-640ffc80-dffd-11e9-9d06-9c91890ac101.png" width="70%"></img>  
+Results of post-hoc test show that sunday differ the most.  
+### Each day as single observation  
+#### Plots  
+First boxplot for every obesrvation.   
+<img src="https://user-images.githubusercontent.com/53919928/65647537-552a4980-dfff-11e9-8d32-99e120eb653c.png" width="60%"></img>   
+Now boxplot without observation with zero change of number of likes.  
+<img src="https://user-images.githubusercontent.com/53919928/65647540-552a4980-dfff-11e9-8799-353ee86c34de.png" width="60%"></img>  
+It looks like discarding 'zeros' changes the most in saturday.  
+Let's take a look on histograms for days in which there were some changes.  
+<img src="https://user-images.githubusercontent.com/53919928/65647898-76d80080-e000-11e9-8d70-b6af68d561b4.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647899-76d80080-e000-11e9-8053-d81e32f9a087.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647900-76d80080-e000-11e9-9455-7c6f9a928a5a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647901-76d80080-e000-11e9-96df-b71dc86b0e6e.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647902-77709700-e000-11e9-81c7-01309bcc7618.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647903-77709700-e000-11e9-90ff-6ec0a797236d.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647904-77709700-e000-11e9-8c7f-ad1ad384acc4.png" width="45%"></img>  
+It looks like changes are smallest for saturday and sunday. 
+
+
 
