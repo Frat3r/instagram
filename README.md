@@ -140,7 +140,7 @@ First look on boxplot of data with every observation
 Let's discard observations with no change. We get  
 <img src="https://user-images.githubusercontent.com/53919928/65645925-9ae41380-dff9-11e9-8a94-eac11f263905.png" width="60%"></img>  
 In above figures we can see that most of likes photos get in the day they were uploaded. It shouldn't be surprising - photos get most of their likes in short time after upload.  
-Let's take a look on histograms of changes in likes (only non-zero changes). 
+Let's take a look on histograms of changes in likes (only non-zero changes)   
 <img src="https://user-images.githubusercontent.com/53919928/65645985-d54db080-dff9-11e9-9255-83c299cc5e55.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645986-d54db080-dff9-11e9-9026-cca62b3acac6.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645987-d54db080-dff9-11e9-9ca8-cd9b521e5c55.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645988-d54db080-dff9-11e9-958a-fb9c8bbadb44.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645989-d54db080-dff9-11e9-9e1f-ab4523a59e75.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645991-d5e64700-dff9-11e9-8a7f-9ac452d51784.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65645992-d5e64700-dff9-11e9-95f3-7ea171e12e03.png" width="45%"></img>  
 Histograms show that most of changes in numbers of likes are close to zero.  
 #### Statistics  
