@@ -155,7 +155,7 @@ I conducted the Kruskal-Wallis test for all observations. P-value was very small
 Red color means that two days differ in significant way.  
 Result of test for data without 'zero' observations was also very small.  
 </img> <img src="https://user-images.githubusercontent.com/53919928/65647003-640ffc80-dffd-11e9-9d06-9c91890ac101.png" width="70%"></img>  
-Results of post-hoc test show that sunday differ the most.  
+Results of post-hoc test show that sunday differs the most.  
 ### Each day as single observation  
 #### Plots  
 First boxplot for every obesrvation.   
@@ -163,9 +163,18 @@ First boxplot for every obesrvation.
 Now boxplot without observation with zero change of number of likes.  
 <img src="https://user-images.githubusercontent.com/53919928/65647540-552a4980-dfff-11e9-8799-353ee86c34de.png" width="60%"></img>  
 It looks like discarding 'zeros' changes the most in saturday.  
-Let's take a look on histograms for days in which there were some changes.  
-<img src="https://user-images.githubusercontent.com/53919928/65647898-76d80080-e000-11e9-8d70-b6af68d561b4.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647899-76d80080-e000-11e9-8053-d81e32f9a087.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647900-76d80080-e000-11e9-9455-7c6f9a928a5a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647901-76d80080-e000-11e9-96df-b71dc86b0e6e.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647902-77709700-e000-11e9-81c7-01309bcc7618.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647903-77709700-e000-11e9-90ff-6ec0a797236d.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65647904-77709700-e000-11e9-8c7f-ad1ad384acc4.png" width="45%"></img>  
-It looks like changes are smallest for saturday and sunday. 
-
+Let's take a look on histograms for every day (with 'zeros').  
+<img src="https://user-images.githubusercontent.com/53919928/65691437-1df48080-e071-11e9-9b53-0d133904deec.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65691438-1df48080-e071-11e9-9b4a-01f1bc01a15f.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65691439-1df48080-e071-11e9-8c05-18f2107c449e.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65691441-1e8d1700-e071-11e9-869f-ce6f88eacfd7.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65691442-1e8d1700-e071-11e9-974f-451c03707ccd.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65691444-1e8d1700-e071-11e9-840a-a101f046003b.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/53919928/65691446-1f25ad80-e071-11e9-9413-afe1c008d460.png" width="45%"></img>  
+It looks like changes are smallest for saturday and sunday.  
+#### Statistics  
+First, we'll look at summaries for all data.  
+</img> <img src="https://user-images.githubusercontent.com/53919928/65689267-f56a8780-e06c-11e9-8873-382f1f800fb4.png" width="50%"></img>  
+We can see that the greatest increase in number of likes occured on tuesday and wednesday  
+</img> <img src="https://user-images.githubusercontent.com/53919928/65689278-fd2a2c00-e06c-11e9-97e8-94588b018b18.png" width="50%"></img>  
+Above table shows that most of days without change in number of likes were sundays.  
+#### Tests  
+Results of Kruskall-Wallis test tell that there are some significant differences between days.  
+<img src="https://user-images.githubusercontent.com/53919928/65693649-eee00e00-e074-11e9-8677-1ecbd71ecd03.png" width="70%"></img>  
+Post-hoc test shows that only sunday and wednesday differ in significant way.
 
 
